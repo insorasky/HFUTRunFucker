@@ -6,7 +6,7 @@ def get_rank(headers):
 
     class Rank:
         def __init__(self, rank_data):
-            self.km = rank_data['data']['distance']
+            self.distance = rank_data['data']['distance']
             self.rank = rank_data['data']['rank']
             self.raw_data = rank_data
     return Rank(data)

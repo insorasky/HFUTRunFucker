@@ -9,4 +9,5 @@ def get_task(headers):
             self.raw_data = task_data
             self.name = task_data['data']['name']
             self.id = task_data['data']['id']
+            self.done = task_data['data']['doneDistance']
     return Task(data)

@@ -27,7 +27,7 @@ class CatchToken:
         elif 'https://tiyun.yzhiee.com/run/task' in url:
             data = json.loads(flow.response.content)
             self.task_id = data['data']['id']
-            print('检测到任务获取请求，任务名称：%s；任务ID：%s' % (data['data']['name'], self.task_id))
+            print('检测到任务获取请求，任务名称：%s；任务ID：%s；已完成：%skm' % (data['data']['name'], self.task_id, data['data']['doneDistance']))
         elif 'https://tiyun.yzhiee.com/wx/steps' in url:
             data = json.loads(flow.request.content)
             self.wechat_steps_data = data['encryptedData']
