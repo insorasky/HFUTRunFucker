@@ -116,3 +116,6 @@ dmypy.json
 # PyCharm
 .idea/
 venv_mac
+
+# macOS
+.DS_store
