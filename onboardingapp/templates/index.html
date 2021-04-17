@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row justify-content-md-center">
+    <div class="col-md-9">
+<!--suppress HtmlUnknownTag -->
+<h3 class="my-4">安装HFUTRunFucker证书(本应用基于mitmproxy，如果您之前安装过本机mitmproxy证书，则无需重新安装)</h3>
+
+{% macro entry(title, icon, filetype="pem") -%}
+<li class="media">
+    {% include 'icons/' + icon + '-brands.svg' %}
+    <div class="media-body">
+        <h5 class="mt-0">{{ title | safe }}</h5>
+        <a class="btn btn-sm btn-success" href="/cert/{{ filetype }}" target="_blank">🔏 下载{{
+            filetype }}证书文件</a>
+        <a class="btn btn-sm btn-info show-instructions" href="#{{ title.split(' ')[0] }}" id="{{ title.split(' ')[0] }}">📖
+            显示安装说明</a>
+        <a class="btn btn-sm btn-info hide-instructions" href="#/">📖 隐藏安装说明</a>
+        <div class="instructions">{{ caller() }}</div>
+    </div>
+</li>
+{%- endmacro %}
+
+<ul class="list-unstyled">
+    {% call entry('iOS <small>– 请阅读安装说明！</small>', 'apple') %}
+    <h5>iOS 13+</h5>
+    <ol>
+        <li>请使用自带的Safari浏览器安装。其他浏览器可能无法正确弹出安装提示。</li>
+        <li>安装描述文件并在设置中启用它 (<samp>设置 -> 通用</samp> ->
+            <samp>描述文件</samp>)。
+        </li>
+        <li><span class="text-danger"><strong>最重要的一步: </strong> 在
+            <samp>设置 -> 通用 -> 关于本机 -> 证书信任设置</samp>中
+            启用 <samp>mitmproxy</samp> 证书。</span></li>
+    </ol>
+    {% endcall %}
+    {% call entry('Android', 'android', 'cer') %}
+    <h5>Android 10+</h5>
+    <ol class="mb-2">
+        <li>打开下载的cer证书文件。</li>
+        <li>随便指定一个证书名称，将证书用途设为VPN与应用。</li>
+        <li>点击确定。</li>
+    </ol>
+
+    <p>部分安卓分支要求您在 <samp>设置 -> 安全 -> 高级 ->
+        凭证与加密 -> 从内置存储安装</samp> 安装证书。</p>
+
+    <div class="alert alert-warning" role="alert">
+        <p><strong>注意: </strong>API Level为24(Android 7.0)以上的应用只接受系统内置证书
+            (<a href="https://github.com/mitmproxy/mitmproxy/issues/2054">#2054</a>)，
+            而用户证书不受信任，除非应用自己信任它。您可能需要使用某些Magisk模块（如Move Certificates）以将证书设为系统证书。
+            如果您的设备不支持Magisk，请考虑更换低版本安卓设备或借用一部苹果设备。
+        </p>
+    </div>
+    {% endcall %}
+    <li class="media">
+    {% include 'icons/certificate-solid.svg' %}
+    <div class="media-body">
+        <h5 class="mt-0">Other Platforms</h5>
+        <a class="btn btn-sm btn-success" href="/cert/pem" target="_blank">🔏 下载 <samp>pem</samp> 证书文件</a>
+        <a class="btn btn-sm btn-success" href="/cert/p12" target="_blank">🔏 下载 <samp>p12</samp> 证书文件</a>
+    </div>
+    </li>
+</ul>
+    </div>
+
+</div>
+<hr/>
+
+<p>
+    其他用户不会连接到该网站。
+    <span class="text-muted">
+    这是您电脑上的本地页面。这个证书是唯一的，因此您一般不需要考虑安全问题。
+    </span>
+</p>
+
+
+{% endblock %}

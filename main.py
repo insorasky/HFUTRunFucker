@@ -1,9 +1,12 @@
 from mitmdump import DumpMaster, Options
 from addon import *
+from onboardingapp import app
+from mitmproxy.addons import asgiapp
 
 addons = [
     CatchToken(),
     Client(),
+    asgiapp.WSGIApp(app, 'run.sorasky.in', 80)
 ]
 
 if __name__ == '__main__':
@@ -15,6 +18,6 @@ Sora 版权所有 https://www.sorasky.in/
 使用方法：在代理环境下打开健跑微信小程序，切换到开始跑步页面（不要点击开始跑步），系统会自动处理！
 为以防万一，使用本工具后，今日内请不要再打开小程序！""")
 
-    options = Options(listen_port=10086, scripts=__file__, onboarding_host='run.sorasky.in', termlog_verbosity='error')
+    options = Options(listen_port=10086, scripts=__file__, termlog_verbosity='error', onboarding=False)
     dm = DumpMaster(options)
     dm.run()
