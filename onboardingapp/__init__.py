@@ -1,11 +1,8 @@
 import os
-
 from flask import Flask, render_template
-
 from mitmproxy.options import CONF_BASENAME, CONF_DIR
 
 app = Flask(__name__)
-# will be overridden in the addon, setting this here so that the Flask app can be run standalone.
 app.config["CONFDIR"] = CONF_DIR
 
 
