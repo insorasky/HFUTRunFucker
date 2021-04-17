@@ -27,13 +27,15 @@ class CatchToken:
         elif 'https://tiyun.yzhiee.com/run/task' in url:
             data = json.loads(flow.response.content)
             self.task_id = data['data']['id']
+            for header in flow.request.headers:
+                self.headers[header] = flow.request.headers[header]
             print('检测到任务获取请求，任务名称：%s；任务ID：%s；已完成：%skm' % (data['data']['name'], self.task_id, data['data']['doneDistance']))
+            session(self)
+        '''    
         elif 'https://tiyun.yzhiee.com/wx/steps' in url:
             data = json.loads(flow.request.content)
             self.wechat_steps_data = data['encryptedData']
             self.wechat_steps_iv = data['iv']
-            for header in flow.request.headers:
-                self.headers[header] = flow.request.headers[header]
             self.wechat_steps_old = self.wechat_steps.get_data(self.wechat_steps_iv, self.wechat_steps_data).last_day_steps
             print('检测到微信步数请求，今日步数：%s' % self.wechat_steps_old)
-            session(self)
+        '''

@@ -1,9 +1,8 @@
 import os
 from flask import Flask, render_template
-from mitmproxy.options import CONF_BASENAME, CONF_DIR
 
 app = Flask(__name__)
-app.config["CONFDIR"] = CONF_DIR
+app.config["CONFDIR"] = './certs'
 
 
 @app.route('/')
@@ -27,13 +26,13 @@ def cer():
 
 
 def read_cert(ext, content_type):
-    filename = CONF_BASENAME + f"-ca-cert.{ext}"
+    filename = f"mitmproxy-ca-cert.{ext}"
     p = os.path.join(app.config["CONFDIR"], filename)
-    p = os.path.expanduser(p)
+    p = os.path.abspath(p)
     with open(p, "rb") as f:
         cert = f.read()
 
     return cert, {
         "Content-Type": content_type,
-        "Content-Disposition": f"inline; filename=hfut-run-fucker-cert.{ext}",
+        "Content-Disposition": f"inline; filename=HFUTRunFucker-ca-cert.{ext}",
     }

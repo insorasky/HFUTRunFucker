@@ -119,3 +119,6 @@ venv_mac/
 
 # macOS
 .DS_store
+
+# Certificates
+/certs

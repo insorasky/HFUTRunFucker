@@ -3,7 +3,7 @@
 <div class="row justify-content-md-center">
     <div class="col-md-9">
 <!--suppress HtmlUnknownTag -->
-<h3 class="my-4">安装HFUTRunFucker证书(本应用基于mitmproxy，如果您之前安装过本机mitmproxy证书，则无需重新安装)</h3>
+<h3 class="my-4">安装HFUTRunFucker证书</h3>
 
 {% macro entry(title, icon, filetype="pem") -%}
 <li class="media">
@@ -21,6 +21,36 @@
 {%- endmacro %}
 
 <ul class="list-unstyled">
+    {% call entry('Windows', 'windows', 'p12') %}
+    <h5>手动安装方法</h5>
+    <ol>
+        <li>双击P12文件以打开证书导入向导，在"证书存储"步骤前一直点击下一步。</li>
+        <li>在"证书存储"步骤，点击"将所有的证书放入下列存储"，点击"浏览"，选择"受信任的根证书颁发机构"。</li>
+        <li>确定，下一步，完成。</li>
+        <li>点击"是"以跳过警告窗口。</li>
+    </ol>
+    <h5>自动安装方法</h5>
+    <ol>
+        <li>在证书的下载目录下右键——在此处打开Windows Powershell/命令窗口，运行<code>certutil.exe -importpfx Root HFUTRunFucker-ca-cert.p12</code>
+            (<a href="https://technet.microsoft.com/en-us/library/cc732443.aspx">详情</a>)。
+        </li>
+    </ol>
+    {% endcall %}
+    {% call entry('Linux', 'linux') %}
+    <h5>对于Ubuntu/Debian系</h5>
+    <ol>
+        <li><code>mv hfut-run-fucker-cert.pem /usr/local/share/ca-certificates/hfut-run-fucker-cert.crt</code></li>
+        <li><code>sudo update-ca-certificates</code></li>
+    </ol>
+    {% endcall %}
+    {% call entry('macOS', 'apple') %}
+    <ol>
+        <li>双击PEM文件打开"钥匙串访问"应用程序。</li>
+        <li>双击列表中的"HFUTRunFucker"。</li>
+        <li>展开"信任"，将<samp>加密套接字协议层(SSL)</samp>更改为<samp>始终信任</samp>。</li>
+        <li>关闭窗口。如果弹出密码输入界面，请输入您的macOS用户登录密码。</li>
+    </ol>
+    {% endcall %}
     {% call entry('iOS <small>– 请阅读安装说明！</small>', 'apple') %}
     <h5>iOS 13+</h5>
     <ol>
@@ -28,9 +58,7 @@
         <li>安装描述文件并在设置中启用它 (<samp>设置 -> 通用</samp> ->
             <samp>描述文件</samp>)。
         </li>
-        <li><span class="text-danger"><strong>最重要的一步: </strong> 在
-            <samp>设置 -> 通用 -> 关于本机 -> 证书信任设置</samp>中
-            启用 <samp>mitmproxy</samp> 证书。</span></li>
+        <li><span class="text-danger"><strong>最重要的一步: </strong> 在<samp>设置 -> 通用 -> 关于本机 -> 证书信任设置</samp>中启用<samp>HFUTRunFucker</samp>证书。</span></li>
     </ol>
     {% endcall %}
     {% call entry('Android', 'android', 'cer') %}
