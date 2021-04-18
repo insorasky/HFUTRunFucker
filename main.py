@@ -3,6 +3,8 @@ from addon import *
 from onboardingapp import app
 from mitmproxy.addons import asgiapp
 from mitmproxy.certs import CertStore
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from requests.packages.urllib3 import disable_warnings
 import os
 
 addons = [
@@ -19,6 +21,8 @@ Sora 版权所有 https://www.sorasky.in/
 如果您使用手机，请在手机和电脑连接同一网络后，将手机HTTP代理端口号设为10086，IP为电脑局域网内地址，方法请百度；
 如果是第一次使用，请用设备浏览器打开：run.sorasky.in，根据指示安装证书！
 使用方法：在代理环境下打开健跑微信小程序（如果您使用电脑，可通过点击手机分享给电脑的小程序卡片打开小程序），切换到开始跑步页面（不要点击开始跑步），系统会自动处理！""")
+
+    disable_warnings(InsecureRequestWarning)
 
     if not os.path.exists('./certs'):
         CertStore.create_store(

@@ -9,5 +9,5 @@ def upload_steps(headers, session_key, encrypted_data, iv, new_steps):
                 json={
                     'encryptedData': encrypted_data,
                     'iv': iv
-                }, headers=headers).json()
+                }, headers=headers, verify=False).json()
     return data['message'] == 'success'

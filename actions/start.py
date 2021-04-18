@@ -6,5 +6,5 @@ def start(headers, task_id, student_id):
                 json={
                     'taskId': task_id,
                     'relationId': student_id
-                }, headers=headers).json()
+                }, headers=headers, verify=False).json()
     return data['data']['id'] if data['message'] == 'success' else False

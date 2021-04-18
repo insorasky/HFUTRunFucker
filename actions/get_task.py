@@ -2,7 +2,7 @@ from requests import get
 
 
 def get_task(headers):
-    data = get('https://tiyun.yzhiee.com/run/task', headers=headers).json()
+    data = get('https://tiyun.yzhiee.com/run/task', headers=headers, verify=False).json()
 
     class Task:
         def __init__(self, task_data):

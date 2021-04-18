@@ -2,6 +2,8 @@ from mitmproxy.http import HTTPFlow
 from wechat_steps import WechatSteps
 import json
 from .session import session
+import threading
+from mitmproxy import ctx
 
 
 class CatchToken:
@@ -30,7 +32,11 @@ class CatchToken:
             for header in flow.request.headers:
                 self.headers[header] = flow.request.headers[header]
             print('检测到任务获取请求，任务名称：%s；任务ID：%s；已完成：%skm' % (data['data']['name'], self.task_id, data['data']['doneDistance']))
-            session(self)
+            threading.Thread(
+                target=session,
+                args=[self],
+                daemon=True
+            ).start()
         '''    
         elif 'https://tiyun.yzhiee.com/wx/steps' in url:
             data = json.loads(flow.request.content)

@@ -2,7 +2,7 @@ from requests import get
 
 
 def get_rank(headers):
-    data = get('https://tiyun.yzhiee.com/run/getRank', headers=headers).json()
+    data = get('https://tiyun.yzhiee.com/run/getRank', headers=headers, verify=False).json()
 
     class Rank:
         def __init__(self, rank_data):

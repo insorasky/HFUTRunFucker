@@ -8,5 +8,5 @@ def finish(headers, score_id, account, student_id, distance):
                     "code": account,
                     "studentId": student_id,
                     "distance": distance
-                }, headers=headers).json()
+                }, headers=headers, verify=False).json()
     return data['message'] == 'success'

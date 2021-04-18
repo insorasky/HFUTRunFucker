@@ -1,2 +1,2 @@
-from . CatchToken import CatchToken
+from .CatchToken import CatchToken
 from .Client import Client
