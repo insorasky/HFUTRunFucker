@@ -1,5 +1,5 @@
 # HFUTRunFucker
-## ~~草他妈的合工大健跑~~
+## ~~去特么的合工大健跑~~
 
 > Sora 版权所有 https://www.sorasky.in/
 > 
